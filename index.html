@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./themify-icons/themify-icons.css">
+        <link rel="stylesheet" href="./responsive.css">
+        <title>Image Gallery</title>
+    </head>
+<body>
+    <div class="app">
+        <div class="container">
+            <div class="image_container">
+                <img class="image" src="img1.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img2.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img3.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img4.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img5.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img6.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img7.jpeg" alt="">
+            </div>
+            <div class="image_container">
+                <img class="image" src="img8.jpeg" alt="">
+            </div>
+        </div>
+        <div class="modal_container">
+            <div class="modal">
+                <img src="img1.jpeg" alt="" class="modal_image">
+                <img src="img2.jpeg" alt="" class="modal_image">
+                <img src="img3.jpeg" alt="" class="modal_image">
+                <img src="img4.jpeg" alt="" class="modal_image">
+                <img src="img5.jpeg" alt="" class="modal_image">
+                <img src="img6.jpeg" alt="" class="modal_image">
+                <img src="img7.jpeg" alt="" class="modal_image">
+                <img src="img8.jpeg" alt="" class="modal_image">
+            </div>
+            <i class="ti-close"></i>
+            <i class="ti-angle-right"></i>
+            <i class="ti-angle-left"></i>
+        </div>
+    </div>
+    <script>
+        let imageElement = document.querySelectorAll('.image')
+        let modalContainerElement = document.querySelector('.modal_container')
+        let modalImageElement = modalContainerElement.querySelectorAll('.modal_image')
+        let closeElement = modalContainerElement.querySelector('.ti-close')
+        let nextElement = modalContainerElement.querySelector('.ti-angle-right')
+        let prevElement = modalContainerElement.querySelector('.ti-angle-left')
+        let currentIndex = 0
+
+        
+        function showModal (){
+            modalContainerElement.classList.add('modal_container--active')
+            document.querySelector('.modal_image--active')?.classList.remove('modal_image--active')
+            modalImageElement[currentIndex].classList.add('modal_image--active')
+        }
+        for(let i= 0; i<imageElement.length; i++){
+            imageElement[i].onclick = function(){
+                currentIndex = i
+                    showModal()
+            }
+        }
+
+        function slideNext(){
+            document.querySelector('.modal_image--prev')?.classList.remove('modal_image--prev')
+            document.querySelector('.modal_image--next')?.classList.remove('modal_image--next')
+            modalImageElement[currentIndex].classList.add('modal_image--next')
+        }
+        function slidePrev(){
+            document.querySelector('.modal_image--next')?.classList.remove('modal_image--next')
+            document.querySelector('.modal_image--prev')?.classList.remove('modal_image--prev')
+            modalImageElement[currentIndex].classList.add('modal_image--prev')
+        }
+        nextElement.onclick = function(){
+            if(currentIndex < imageElement.length -1 ){
+                currentIndex++
+                showModal()
+                slideNext()
+                
+            }
+            else if(currentIndex == imageElement.length -1){
+                currentIndex = 0
+                showModal()
+                slideNext()
+            }
+        }
+        prevElement.onclick = function(){
+            if(currentIndex == 0){
+                currentIndex = imageElement.length -1
+                showModal()
+                slidePrev()
+            }
+            else if(currentIndex <= imageElement.length -1){
+                currentIndex--
+                showModal()
+                slidePrev()
+            }
+        }
+        //-------------------------------------------
+            let touchstartX = 0
+            let touchendX = 0
+            function handleGesture() {
+            if (touchendX < touchstartX) {
+            if(currentIndex < imageElement.length -1 ){
+                currentIndex++
+                showModal()
+                slideNext()
+                
+            }
+            else if(currentIndex == imageElement.length -1){
+                currentIndex = 0
+                showModal()
+                slideNext()
+            }}
+
+
+            if (touchendX > touchstartX) {
+            if(currentIndex == 0){
+                currentIndex = imageElement.length -1
+                showModal()
+                slidePrev()
+            }
+            else if(currentIndex <= imageElement.length -1){
+                currentIndex--
+                showModal()
+                slidePrev()
+            }
+            }}
+
+            modalContainerElement.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX
+            console.log(touchstartX)
+            })
+        
+            modalContainerElement.addEventListener('touchend', e => {
+            console.log(touchendX)
+            touchendX = e.changedTouches[0].screenX
+            handleGesture()
+        })
+            //------------------------------------------------------------
+
+        closeElement.onclick = function(){
+            modalContainerElement.classList.remove('modal_container--active')
+            document.querySelector('.modal_image--next')?.classList.remove('modal_image--next')
+            document.querySelector('.modal_image--prev')?.classList.remove('modal_image--prev')
+            modalImageElement[currentIndex].classList.remove('modal_image--active')
+
+        }
+        document.addEventListener('keydown', function(e){
+            if(e.key === 'Escape'){
+                if(modalContainerElement.classList.contains('modal_container--active')){
+                    modalContainerElement.classList.remove('modal_container--active')
+                }
+            modalImageElement[currentIndex].classList.remove('modal_image--active')
+            document.querySelector('.modal_image--next')?.classList.remove('modal_image--next')
+            document.querySelector('.modal_image--prev')?.classList.remove('modal_image--prev')
+            }
+        })
+
+    </script>
+</body>
+</html>

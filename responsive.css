@@ -1,0 +1,13 @@
+@media (max-width:740px){
+    .image_container{
+        width: 90%;
+    }
+}
+@media (min-width:740px){
+    .image:hover{
+        transform: scale(1.2);
+    }
+    .ti-close:hover,.ti-angle-right:hover,.ti-angle-left:hover{
+        filter: brightness(60%);
+    }
+}

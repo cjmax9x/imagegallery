@@ -1,0 +1,110 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+@keyframes animationNext {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+@keyframes animationPrev {
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+body{
+    background-color: #DADADA;
+}
+.container{
+    justify-content: space-around;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.image_container{
+    border-radius: 4px;
+    width: 22%;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.image{
+    display: block;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.modal_container{
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2C2C2C;
+}
+.modal_container--active{
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+.modal_image{
+    display: none;
+    height: 500px;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+.modal_image--active{
+    display: block;
+}
+.modal_image--next{
+    animation: animationNext ease 0.8s;
+}
+.modal_image--prev{
+    animation: animationPrev ease 0.8s;
+}
+.ti-close{
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    font-size: 2.0rem;
+    color: white;
+}
+.ti-angle-left{
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10%;
+    font-size: 2.0rem;
+    color: white;
+}
+.ti-angle-right{
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10%;
+    font-size: 2.0rem;
+    color: white;
+}
